@@ -1,57 +1,74 @@
 import React from "react";
-import {View, ScrollView, Image, TouchableOpacity, StyleSheet, Text} from "react-native";
+import {View, ScrollView, Image, TouchableOpacity, StyleSheet, Text,ImageBackground} from "react-native";
 import IconButton from "./components/icon_button";
 
-const HomePage = () => {
+const backgroundImage = require("../assets/backgroundmicash.png");
+
+const HomePage = ({navigation}) => {
     return (
-        <View style={styles.container}>
-            {/* Pay Button */}
-            <TouchableOpacity onPress={() => "handlePayButtonPress"} style={styles.PayButton}>
-                <Image source={require("../assets/Component1541.png")} style={styles.PayButton_image} />
-            </TouchableOpacity>
-
-            <View style={styles.Wallet_GetPaid_Container}>
+        <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
+            <View style={styles.container}>
+                {/* Pay Button */}
                 <TouchableOpacity onPress={() => "handlePayButtonPress"} style={styles.PayButton}>
-                    <Image source={require("../assets/WalletButton.png")} style={{flex: 1, aspectRatio: 1}} />
+                    <Image source={require("../assets/Component1541.png")} style={styles.PayButton_image} />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => "handlePayButtonPress"} style={styles.PayButton}>
-                    <Image source={require("../assets/Component1551.png")} style={{flex: 1, aspectRatio: 1}} />
-                </TouchableOpacity>
-            </View>
-            {/* Middle Logo */}
-            <View onPress={() => "handlePayButtonPress"} style={styles.MiddleLogo}>
-                <Image source={require("../assets/Component1511.png")} style={{flex: 1, aspectRatio: 1}} />
-            </View>
 
-            <View style={styles.History_MyLinks_Container}>
-                {/* History Button */}
-                <TouchableOpacity onPress={() => "handleHistoryButtonPress"} style={styles.PayButton}>
-                    <Image source={require("../assets/Component1571.png")} style={{flex: 1, aspectRatio: 1}} />
-                </TouchableOpacity>
-                {/* My Links Button */}
-                <TouchableOpacity onPress={() => "handleLinksButtonPress"} style={styles.PayButton}>
-                    <Image source={require("../assets/Component1581.png")} style={{flex: 1, aspectRatio: 1}} />
-                </TouchableOpacity>
-            </View>
-
-            {/* Bottom Buttons */}
-            <View style={styles.PocketManager_container}>
-                <IconButton onPress={()=>""} name={"Pocket Manager"} color={""} disabled={undefined} image={""}/>
-            </View>
-
-            <View style={styles.ShowCode_ScanCode}>
-                {/* Show Code Action */}
-                    <TouchableOpacity onPress={() => "handleShowCodeActionPress"} style={{}}>
-                        <Image source={require("../assets/Group2214.png")} style={{flex: 1, aspectRatio: 2}} />
+                <View style={styles.Wallet_GetPaid_Container}>
+                    <TouchableOpacity onPress={() => "handlePayButtonPress"} style={styles.PayButton}>
+                        <Image source={require("../assets/WalletButton.png")} style={{flex: 1, aspectRatio: 1}} />
                     </TouchableOpacity>
+                    <TouchableOpacity onPress={() => "handlePayButtonPress"} style={styles.PayButton}>
+                        <Image source={require("../assets/Component1551.png")} style={{flex: 1, aspectRatio: 1}} />
+                    </TouchableOpacity>
+                </View>
+                {/* Middle Logo */}
+                <View onPress={() => "handlePayButtonPress"} style={styles.MiddleLogo}>
+                    <Image source={require("../assets/Component1511.png")} style={{flex: 1, aspectRatio: 1}} />
+                </View>
+
+                <View style={styles.History_MyLinks_Container}>
+                    {/* History Button */}
+                    <TouchableOpacity onPress={() => "handleHistoryButtonPress"} style={styles.PayButton}>
+                        <Image source={require("../assets/Component1571.png")} style={{flex: 1, aspectRatio: 1}} />
+                    </TouchableOpacity>
+                    {/* My Links Button */}
+                    <TouchableOpacity onPress={() => "handleLinksButtonPress"} style={styles.PayButton}>
+                        <Image source={require("../assets/Component1581.png")} style={{flex: 1, aspectRatio: 1}} />
+                    </TouchableOpacity>
+                </View>
+
+                {/* Bottom Buttons */}
+                <View style={styles.PocketManager_container}>
+                    <IconButton
+                        name="Pocket Manager"
+                        color=""
+                        disabled={undefined}
+                        image={require("../assets/pocket.png")}
+                        onPress={()=> navigation.jumpTo('PocketManager')}
+                    />
+                </View>
+
+                <View style={styles.ShowCode_ScanCode}>
+                    {/* Show Code Action */}
+                    <IconButton
+                        name="Show code"
+                        color=""
+                        disabled={undefined}
+                        image={require("../assets/Group2214.png")}
+                        onPress={{}}
+                    />
 
                     {/* Scan QR Code */}
-                    <TouchableOpacity onPress={() => "handleScanQRCodePress"} style={{}}>
-                        <Image source={require("../assets/Group2213.png")} style={{flex: 1, aspectRatio: 2}} />
-                    </TouchableOpacity>
-
+                    <IconButton
+                        name="Scan code"
+                        color=""
+                        disabled={undefined}
+                        image={require("../assets/QRPageicon.png")}
+                        onPress={{}}
+                    />
+                </View>
             </View>
-        </View>
+        </ImageBackground>
     );
 };
 
@@ -102,14 +119,18 @@ const styles = StyleSheet.create({
         paddingHorizontal: 30,
     },
 
-    PocketManager_container:{
+    PocketManager_container: {
         alignItems: "center",
     },
-    ShowCode_ScanCode:{
+    ShowCode_ScanCode: {
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        marginTop: "-22%",
-    }
-    
+        padding: 20,
+    },
+    backgroundImage: {
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center",
+      },
 });
