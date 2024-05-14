@@ -28,14 +28,7 @@ const AppNavigator = () => {
             headerStyle: { backgroundColor: "#2F3E6B" },
           }}
         />
-        <Stack.Screen
-          options={{
-            title: "Wallet",
-            headerStyle: { backgroundColor: "#2F3E6B" },
-          }}
-          name="WalletNavigator"
-          component={WalletNavigator}
-        />
+       
       </Stack.Navigator>
     </ImageBackground>
   );
