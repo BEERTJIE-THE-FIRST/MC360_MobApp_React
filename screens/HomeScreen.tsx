@@ -2,11 +2,9 @@ import React from "react";
 import {View, ScrollView, Image, TouchableOpacity, StyleSheet, Text,ImageBackground} from "react-native";
 import IconButton from "./components/icon_button";
 
-const backgroundImage = require("../assets/backgroundmicash.png");
-
 const HomePage = ({navigation}) => {
     return (
-        <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
+        <ImageBackground source={require('../assets/backgroundmicash.png')} style={styles.backgroundImage}>
             <View style={styles.container}>
                 {/* Pay Button */}
                 <TouchableOpacity onPress={() => "handlePayButtonPress"} style={styles.PayButton}>
@@ -22,7 +20,7 @@ const HomePage = ({navigation}) => {
                     </TouchableOpacity>
                 </View>
                 {/* Middle Logo */}
-                <View onPress={() => "handlePayButtonPress"} style={styles.MiddleLogo}>
+                <View style={styles.MiddleLogo}>
                     <Image source={require("../assets/Component1511.png")} style={{flex: 1, aspectRatio: 1}} />
                 </View>
 
@@ -55,7 +53,7 @@ const HomePage = ({navigation}) => {
                         color=""
                         disabled={undefined}
                         image={require("../assets/Group2214.png")}
-                        onPress={{}}
+                        onPress={()=>{}}
                     />
 
                     {/* Scan QR Code */}
@@ -64,7 +62,7 @@ const HomePage = ({navigation}) => {
                         color=""
                         disabled={undefined}
                         image={require("../assets/QRPageicon.png")}
-                        onPress={{}}
+                        onPress={()=>{}}
                     />
                 </View>
             </View>

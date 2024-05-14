@@ -1,15 +1,15 @@
 import { Pressable, Text, ImageBackground, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import HomeScreen from "./screens/HomeScreen";
-import AuthenticationScreen from "./screens/usermanagement/auth/AuthenticationScreen";
+import HomeScreen from "../HomeScreen";
+import AuthenticationScreen from "../usermanagement/auth/AuthenticationScreen";
 import AppDrawer from "./AppDrawer";
 
 const Stack = createNativeStackNavigator();
 
 export const AppStack = () => {
   return (
-    <ImageBackground source={require('./assets/backgroundmicash.png')} style={styles.backgroundImage}>
+    <ImageBackground source={require('../../assets/backgroundmicash.png')} style={styles.backgroundImage}>
       <Stack.Navigator>
         <Stack.Screen
           name="Authentication"

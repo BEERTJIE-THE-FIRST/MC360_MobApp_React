@@ -1,11 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import SettingsScreen from "./screens/SettingsScreen";
-import CourseListScreen from "./screens/CourseList";
-import ProfileScreen from "./screens/Profile";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { AboutStack } from "./AppStack";
-import AppDrawer from "./AppDrawer.1";
+import AppDrawer from "./AppDrawer";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const Tab = createBottomTabNavigator();
