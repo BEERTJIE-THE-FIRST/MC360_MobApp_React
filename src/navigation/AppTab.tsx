@@ -5,7 +5,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const Tab = createBottomTabNavigator();
 
-
 export default function App() {
   return (
     <NavigationContainer>
@@ -14,8 +13,6 @@ export default function App() {
           //   tabBarShowLabel: false,
           tabBarLabelPosition: "below-icon",
           tabBarActiveTintColor: "purple",
-
-          
         }}
       >
         <Tab.Screen name="AppDrawer" component={AppDrawer} />

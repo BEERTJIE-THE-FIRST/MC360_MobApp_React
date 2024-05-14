@@ -1,7 +1,7 @@
 // DeviceInfoUtil.js
 
-import { Platform } from 'react-native';
-import Constants from 'expo-constants';
+import { Platform } from "react-native";
+import Constants from "expo-constants";
 
 export default class DeviceInfoUtil {
   static getModel() {
@@ -17,7 +17,11 @@ export default class DeviceInfoUtil {
   }
 
   static getVersionString() {
-    return Constants.platform?.ios?.systemVersion || Constants.platform?.android?.versionCode || '';
+    return (
+      Constants.platform?.ios?.systemVersion ||
+      Constants.platform?.android?.versionCode ||
+      ""
+    );
   }
 
   static getPlatform() {
@@ -26,11 +30,11 @@ export default class DeviceInfoUtil {
 
   static getIdiom() {
     // Implement logic to determine device idiom (e.g., phone, tablet)
-    return 'Phone'; // Placeholder value, adjust as needed
+    return "Phone"; // Placeholder value, adjust as needed
   }
 
   static getDeviceType() {
     // Expo doesn't provide this information directly
-    return 'Physical'; // Placeholder value, adjust as needed
+    return "Physical"; // Placeholder value, adjust as needed
   }
 }

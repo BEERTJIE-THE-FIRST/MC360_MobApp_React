@@ -1,8 +1,5 @@
-import MyStack from "./screens/navigation/AppStack";
-
+import AppRoute from "./src/navigation/Navigator";
 
 export default function App() {
-  return (
-    <MyStack />
-  );
+  return <AppRoute />;
 }

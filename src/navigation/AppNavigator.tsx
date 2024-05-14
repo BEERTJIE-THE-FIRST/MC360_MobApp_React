@@ -1,29 +1,40 @@
 import { Pressable, Text, ImageBackground, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import HomeScreen from "../HomeScreen";
-import AuthenticationScreen from "../usermanagement/auth/AuthenticationScreen";
 import AppDrawer from "./AppDrawer";
+import AuthenticationScreen from "../screens/usermanagement/auth/authenticationScreen";
+import HomeScreen from "../screens/HomeScreen";
+import WalletNavigator from "./StackNavigators/WalletStackNavigator";
 
 const Stack = createNativeStackNavigator();
 
-export const AppStack = () => {
+const AppNavigator = () => {
   return (
-    <ImageBackground source={require('../../assets/backgroundmicash.png')} style={styles.backgroundImage}>
+    <ImageBackground
+      source={require("../../assets/backgroundmicash.png")}
+      style={styles.backgroundImage}
+    >
       <Stack.Navigator>
         <Stack.Screen
-          name="Authentication"
-          component={AuthenticationScreen}
+          name="AppDrawer"
+          component={AppDrawer}
           options={{ headerShown: false }}
         />
-        <Stack.Screen name="AppDrawer" component={AppDrawer} options={{ headerShown: false }} />
         <Stack.Screen
           name="Home"
           component={HomeScreen}
           options={{
             title: "Welcome Home",
-            headerStyle: { backgroundColor: '#2F3E6B' }
+            headerStyle: { backgroundColor: "#2F3E6B" },
           }}
+        />
+        <Stack.Screen
+          options={{
+            title: "Wallet",
+            headerStyle: { backgroundColor: "#2F3E6B" },
+          }}
+          name="WalletNavigator"
+          component={WalletNavigator}
         />
       </Stack.Navigator>
     </ImageBackground>
@@ -38,10 +49,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function MyStack() {
-  return (
-    <NavigationContainer>
-      <AppStack />
-    </NavigationContainer>
-  );
-}
+export default AppNavigator;
