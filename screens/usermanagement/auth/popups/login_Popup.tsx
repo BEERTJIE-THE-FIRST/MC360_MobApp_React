@@ -1,18 +1,20 @@
-import React, { useState, useRef, useEffect } from "react";
-import { View, Text, ActivityIndicator, StyleSheet, Alert, TextInput } from "react-native";
+import React, {useState, useRef, useEffect} from "react";
+import {View, Text, ActivityIndicator, StyleSheet, Alert, TextInput} from "react-native";
 import AuthenticationTextInput from "../../../components/textInput";
 import ButtonCancel from "../../../components/button_Cancel";
 import OTPOrPasscodeInput from "../../../components/otp_Or_Passcode_Input";
 import NetInfo from "@react-native-community/netinfo";
-import { loginClicked } from "./Security_Pin_Popup";
+import {loginClicked} from "./Security_Pin_Popup";
 import CustomButton from "../../../components/button";
+import ApiUserResponse from "../../../models/ApiUserResponse";
+import RegisterNewDevice from "../../../services/RegisterNewDeviceService";
 
-export default function LoginPopup({ onClose, setModalVisible, navigation }: any) {
+export default function LoginPopup({onClose, setModalVisible, navigation}: any) {
     const [focused, setFocused] = useState(false);
     const [phoneOrEmail, setPhoneOrEmail] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [loginAttempts, setLoginAttempts] = useState(0);
-    const [codeInputs, setCodeInputs] = useState<Array<string>>([])
+    const [codeInputs, setCodeInputs] = useState<Array<string>>([]);
 
     // const navigation = useNavigation();
 
@@ -26,9 +28,9 @@ export default function LoginPopup({ onClose, setModalVisible, navigation }: any
 
     useEffect(() => {
         // Subscribe to internet connection changes
-        const unsubscribe = NetInfo.addEventListener(state => {
+        const unsubscribe = NetInfo.addEventListener((state) => {
             if (state.isConnected === false) {
-                Alert.alert('No Internet', 'Please check your internet connection');
+                Alert.alert("No Internet", "Please check your internet connection");
             }
         });
 
@@ -38,16 +40,26 @@ export default function LoginPopup({ onClose, setModalVisible, navigation }: any
         };
     }, []);
 
-    async function handleLogin() {
+    async function handleLogin(): Promise<ApiUserResponse> {
         const loginStatus = await loginClicked(setIsLoading, loginAttempts, phoneOrEmail, codeInputs);
-    
-        if (loginStatus === "Success") {
-            setModalVisible(onClose);
-            navigation.navigate('AppDrawer', { screen: 'Home' });
 
+        if (loginStatus != null) {
+            if (loginStatus.success) {
+                if (!loginStatus.new_device) {
+                    setIsLoading(false);
+                    return navigation.navigate("AppDrawer", {screen: "Home"});
+                }else{
+                    return await RegisterNewDevice();
+                }
+            }
         }
+
+        // if (loginStatus === "Success") {
+        //     setModalVisible(onClose);
+        //     navigation.navigate('AppDrawer', { screen: 'Home' });
+
+        // }
     }
-    
 
     return (
         <View style={styles.container}>
@@ -71,7 +83,6 @@ export default function LoginPopup({ onClose, setModalVisible, navigation }: any
 
             <CustomButton onPress={handleLogin} name={"Login"} color={undefined} disabled={isLoading} />
             <ButtonCancel onPress={() => setModalVisible(onClose)} name={"Cancel"} />
-
         </View>
     );
 }
