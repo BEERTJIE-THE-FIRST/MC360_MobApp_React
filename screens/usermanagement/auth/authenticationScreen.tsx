@@ -18,12 +18,17 @@ import * as LocalAuthentication from 'expo-local-authentication';
 import * as SecureStore from 'expo-secure-store';
 import axios from 'axios';
 import { AuthLogin } from "../../../environments";
+import OtpVerificationPopup from "./popups/OtpVerificationPopup";
 
 export default function AuthenticationScreen({navigation}:any) {
     const [modalVisible, setModalVisible] = useState(false);
     const [isAuthenticating, setIsAuthenticating] = useState(false);
+    const [otpModalVisible, setOtpModalVisible] = useState(false);
     
     const AuthBtn_Clicked = async () => {
+        
+        navigation.navigate('AppDrawer', { screen: 'Home' });
+        return;
         try {
             const availability = await LocalAuthentication.hasHardwareAsync();
             const authKey = SecureStore.getItem('micashSecriteKey');
@@ -123,7 +128,19 @@ export default function AuthenticationScreen({navigation}:any) {
                 }}
             >
                 <View style={styles.centeredView}>
-                    <LoginPopup onClose={!modalVisible} setModalVisible={setModalVisible} navigation={navigation}/>
+                    <LoginPopup onClose={!modalVisible} setModalVisible={setModalVisible} setOtpModalVisible={setOtpModalVisible} navigation={navigation}/>
+                </View>
+            </Modal>
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={otpModalVisible}
+                onRequestClose={() => {
+                    setModalVisible(!otpModalVisible);
+                }}
+            >
+                <View style={styles.centeredView}>
+                    <OtpVerificationPopup onClose={!otpModalVisible} setModalVisible={setOtpModalVisible} navigation={navigation}/>
                 </View>
             </Modal>
         </ImageBackground>

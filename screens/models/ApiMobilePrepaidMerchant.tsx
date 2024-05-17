@@ -1,8 +1,7 @@
 interface ApiMobilePrepaidMerchant {
-    uuid: string;
-    name: string;
-    merchantType: string;
-  }
-  
-  export default ApiMobilePrepaidMerchant;
-  
+  Uuid: string;
+  Name: string;
+  MerchantType: string;
+}
+
+export default ApiMobilePrepaidMerchant;

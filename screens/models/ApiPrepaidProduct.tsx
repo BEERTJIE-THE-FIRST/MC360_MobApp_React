@@ -1,20 +1,20 @@
 import CurrencyConverter from './CurrencyConverter';
 
 class ApiPrepaidProduct {
-  uuid: string;
-  productType: string;
-  amount: string | number | null;
-  approvedDescription: string;
+  Uuid: string;
+  ProductType: string;
+  Amount: string | number | null;
+  ApprovedDescription: string;
 
   constructor(uuid: string, productType: string, amount: string | number | null, approvedDescription: string) {
-    this.uuid = uuid;
-    this.productType = productType;
-    this.amount = amount;
-    this.approvedDescription = approvedDescription;
+    this.Uuid = uuid;
+    this.ProductType = productType;
+    this.Amount = amount;
+    this.ApprovedDescription = approvedDescription;
   }
 
-  get formattedAmount(): number {
-    const amount = this.amount != null ? this.amount : 0;
+  get FormattedAmount(): number {
+    const amount = this.Amount != null ? this.Amount : 0;
     return CurrencyConverter.convert(amount.toString());
   }
 }

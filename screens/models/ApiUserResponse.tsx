@@ -1,16 +1,15 @@
 import { ImageSourcePropType } from 'react-native';
 
 interface ApiUserResponse {
-  displayName: string;
-  selfie: string;
+  DisplayName: string;
+  Selfie: string;
   E_ID: string;
-  reference_id: string;
-  amount: number;
-  cellNum: string;
+  Reference_id: string;
+  Amount: number;
+  CellNum: string;
   person_id: string;
-  authKey: string;
+  AuthKey: string;
   imageSource: ImageSourcePropType | null;
 }
 
 export default ApiUserResponse;
-

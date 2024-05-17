@@ -1,20 +1,19 @@
 class ApiFeeResponseClass {
-    externalAmount: number;
-    internalAmount: number;
-    vatAmount: number;
-    totalAmount: number;
-  
-    constructor(externalAmount: number, internalAmount: number, vatAmount: number, totalAmount: number) {
-      this.externalAmount = externalAmount;
-      this.internalAmount = internalAmount;
-      this.vatAmount = vatAmount;
-      this.totalAmount = totalAmount;
-    }
-  
-    get serviceFee(): number {
-      return this.externalAmount + this.internalAmount;
-    }
+  ExternalAmount: number;
+  InternalAmount: number;
+  VatAmount: number;
+  TotalAmount: number;
+
+  constructor(externalAmount: number, internalAmount: number, vatAmount: number, totalAmount: number) {
+      this.ExternalAmount = externalAmount;
+      this.InternalAmount = internalAmount;
+      this.VatAmount = vatAmount;
+      this.TotalAmount = totalAmount;
   }
-  
- export default ApiFeeResponseClass;
-  
+
+  get ServiceFee(): number {
+      return this.ExternalAmount + this.InternalAmount;
+  }
+}
+
+export default ApiFeeResponseClass;

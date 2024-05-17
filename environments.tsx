@@ -43,7 +43,7 @@ export async function GetBalance() {
                 headers.set("Cookie", cookie);
             }
 
-            const response = await fetch(`${environments.url}Individual/ApiGetBalance`, {
+            const response = await fetch(`${environments.url}Individual/ApiGetBalance`, { 
                 headers: headers,
             });
 

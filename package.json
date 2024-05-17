@@ -24,7 +24,9 @@
     "expo-local-authentication": "~14.0.1",
     "expo-secure-store": "~13.0.1",
     "expo-status-bar": "~1.12.1",
+    "global": "^4.4.0",
     "react": "18.2.0",
+    "react-devtools": "^5.2.0",
     "react-native": "0.74.1",
     "react-native-gesture-handler": "~2.16.1",
     "react-native-reanimated": "~3.10.1",
@@ -33,7 +35,8 @@
     "typescript": "~5.3.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "expo-module-scripts": "^3.5.1"
   },
   "private": true
 }

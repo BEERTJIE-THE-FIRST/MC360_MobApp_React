@@ -5,11 +5,13 @@ import ApiLinkBank from "./ApiLinkBank";
 import ApiLinkResponse from "./ApiLinkResponse";
 import ApiMobilePrepaidMerchant from "./ApiMobilePrepaidMerchant";
 import ApiPaymentRequest from "./ApiPaymentRequest";
+import {ApiPocket} from "./ApiPocket";
 import ApiPrepaidProduct from "./ApiPrepaidProduct";
 import ApiPrepaidProductHistoryItem from "./ApiPrepaidProductHistoryItem";
 import ApiTransaction from "./ApiTransaction";
 import ApiUserResponse from "./ApiUserResponse";
 import Limits from "./Limits";
+import User from "./User";
 
 export interface ApiResponce {
     success: boolean;
@@ -24,22 +26,22 @@ export interface ApiResponce {
     reponseUrl: string;
     description: string;
     image: string;
-    fees: ApiFeeResponse;
-    cashFundingToken: ApiCashFundingTokenResponse;
-    transactions: ApiTransaction[];
-    transaction: ApiTransaction;
-    pockets: ApiPocket[];
-    paymentRequest: PaymentRequest;
-    paymentRequests: ApiPaymentRequest[];
-    links: ApiLinkResponse[];
-    referralCount: number;
-    referral: string;
-    withdrawToken: ApiCashWithdrawal;
-    banks: ApiLinkBank[];
-    prepaidMerchants: ApiMobilePrepaidMerchant[];
-    prepaidMerchantProducts: ApiPrepaidProduct[];
-    limits: Limits;
-    mobilePrepaidProductHistory: ApiPrepaidProductHistoryItem[];
+    Fees: ApiFeeResponse;
+    CashFundingToken: ApiCashFundingTokenResponse;
+    Transactions: ApiTransaction[];
+    Transaction: ApiTransaction;
+    Pockets: ApiPocket[];
+    PaymentRequest: PaymentRequest;
+    PaymentRequests: ApiPaymentRequest[];
+    Links: ApiLinkResponse[];
+    ReferralCount: number;
+    Referral: string;
+    WithdrawToken: ApiCashWithdrawal;
+    Banks: ApiLinkBank[];
+    PrepaidMerchants: ApiMobilePrepaidMerchant[];
+    PrepaidMerchantProducts: ApiPrepaidProduct[];
+    Limits: Limits;
+    MobilePrepaidProductHistory: ApiPrepaidProductHistoryItem[];
 }
 
 export default ApiResponce;

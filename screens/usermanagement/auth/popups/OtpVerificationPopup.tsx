@@ -1,20 +1,14 @@
 import React, {useState, useRef, useEffect} from "react";
-import {View, Text, ActivityIndicator, StyleSheet, Alert, TextInput, Modal} from "react-native";
-import AuthenticationTextInput from "../../../components/textInput";
+import {View, Text, ActivityIndicator, StyleSheet, Alert} from "react-native";
 import ButtonCancel from "../../../components/button_Cancel";
 import OTPOrPasscodeInput from "../../../components/otp_Or_Passcode_Input";
 import NetInfo from "@react-native-community/netinfo";
-import {loginClicked} from "./Security_Pin_Popup";
 import CustomButton from "../../../components/button";
-import ApiUserResponse from "../../../models/ApiUserResponse";
 import RegisterNewDevice from "../../../services/RegisterNewDeviceService";
-import OtpVerificationPopup from "./OtpVerificationPopup";
 
-export default function LoginPopup({onClose, setModalVisible, navigation, setOtpModalVisible }: any) {
+export default function OtpVerificationPopup({onClose, setModalVisible, navigation}: any) {
     const [focused, setFocused] = useState(false);
-    const [phoneOrEmail, setPhoneOrEmail] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const [loginAttempts, setLoginAttempts] = useState(0);
     const [codeInputs, setCodeInputs] = useState<Array<string>>([]);
 
     // const navigation = useNavigation();
@@ -41,41 +35,26 @@ export default function LoginPopup({onClose, setModalVisible, navigation, setOtp
         };
     }, []);
 
-    async function handleLogin(): Promise<ApiUserResponse> {
-        const loginStatus = await loginClicked(setIsLoading, loginAttempts, phoneOrEmail, codeInputs);
-
-        if (loginStatus != null) {
-            if (loginStatus.success) {
-                if (!loginStatus.new_device) {
-                    setIsLoading(false);
-                    return navigation.navigate("AppDrawer", {screen: "Home"});
-                }else{
-                    setOtpModalVisible(true)
-                    setModalVisible(false)
-                }
+    async function handleSubmit(): Promise<void> {
+        setIsLoading(true);
+        try {
+            const result = await RegisterNewDevice(codeInputs);
+            if (result != null) {
+                setIsLoading(false);
+                navigation.navigate("AppDrawer", {
+                    screen: "Home",
+                    user: result.user,
+                });
+                setModalVisible(onClose);
             }
+        } catch (error) {
+            console.error("Error handling submit:", error);
         }
-
-        // if (loginStatus === "Success") {
-        //     setModalVisible(onClose);
-        //     navigation.navigate('AppDrawer', { screen: 'Home' });
-
-        // }
     }
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Please enter your login details.</Text>
-
-            <AuthenticationTextInput
-                placeholder="Enter Phone/Email"
-                keyboardType="email-address"
-                value={phoneOrEmail}
-                onChangeText={setPhoneOrEmail}
-                onBlur={handleBlur}
-                onFocus={handleFocus}
-                focused={focused}
-            />
+            <Text style={styles.title}>Please enter the OTP that was sent to your email.</Text>
 
             <View style={styles.pinContainer}>
                 <OTPOrPasscodeInput setCodeInputs={setCodeInputs} />
@@ -83,7 +62,7 @@ export default function LoginPopup({onClose, setModalVisible, navigation, setOtp
 
             {isLoading && <ActivityIndicator color="#134F6F" />}
 
-            <CustomButton onPress={handleLogin} name={"Login"} color={undefined} disabled={isLoading} />
+            <CustomButton onPress={handleSubmit} name={"Submit"} color={undefined} disabled={isLoading} />
             <ButtonCancel onPress={() => setModalVisible(onClose)} name={"Cancel"} />
         </View>
     );
@@ -110,8 +89,8 @@ const styles = StyleSheet.create({
     },
     centeredView: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: "center",
+        alignItems: "center",
         marginTop: 22,
-      },
+    },
 });

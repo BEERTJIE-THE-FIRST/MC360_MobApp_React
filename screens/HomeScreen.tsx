@@ -1,37 +1,38 @@
 import React from "react";
-import {View, ScrollView, Image, TouchableOpacity, StyleSheet, Text,ImageBackground} from "react-native";
+import { View, Image, TouchableOpacity, StyleSheet, ImageBackground } from "react-native";
 import IconButton from "./components/icon_button";
 
-const HomePage = ({navigation}) => {
+const HomePage = ({ navigation }) => {
     return (
         <ImageBackground source={require('../assets/backgroundmicash.png')} style={styles.backgroundImage}>
             <View style={styles.container}>
                 {/* Pay Button */}
-                <TouchableOpacity onPress={() => "handlePayButtonPress"} style={styles.PayButton}>
+                <TouchableOpacity onPress={() => navigation.navigate("AppTab", { screen: 'Pay' })} style={styles.PayButton}>
                     <Image source={require("../assets/Component1541.png")} style={styles.PayButton_image} />
                 </TouchableOpacity>
 
                 <View style={styles.Wallet_GetPaid_Container}>
-                    <TouchableOpacity onPress={() => "handlePayButtonPress"} style={styles.PayButton}>
-                        <Image source={require("../assets/WalletButton.png")} style={{flex: 1, aspectRatio: 1}} />
+                    <TouchableOpacity onPress={() => ""} style={styles.PayButton}>
+                        <Image source={require("../assets/WalletButton.png")} style={{ flex: 1, aspectRatio: 1 }} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => "handlePayButtonPress"} style={styles.PayButton}>
-                        <Image source={require("../assets/Component1551.png")} style={{flex: 1, aspectRatio: 1}} />
+                    <TouchableOpacity onPress={() => navigation.navigate("AppTab", { screen: 'GetPaid' })} style={styles.PayButton}>
+                        <Image source={require("../assets/Component1551.png")} style={{ flex: 1, aspectRatio: 1 }} />
                     </TouchableOpacity>
                 </View>
+
                 {/* Middle Logo */}
                 <View style={styles.MiddleLogo}>
-                    <Image source={require("../assets/Component1511.png")} style={{flex: 1, aspectRatio: 1}} />
+                    <Image source={require("../assets/Component1511.png")} style={{ flex: 1, aspectRatio: 1 }} />
                 </View>
 
                 <View style={styles.History_MyLinks_Container}>
                     {/* History Button */}
-                    <TouchableOpacity onPress={() => "handleHistoryButtonPress"} style={styles.PayButton}>
-                        <Image source={require("../assets/Component1571.png")} style={{flex: 1, aspectRatio: 1}} />
+                    <TouchableOpacity onPress={() => navigation.navigate("AppTab", { screen: 'History' })} style={styles.PayButton}>
+                        <Image source={require("../assets/Component1571.png")} style={{ flex: 1, aspectRatio: 1 }} />
                     </TouchableOpacity>
                     {/* My Links Button */}
-                    <TouchableOpacity onPress={() => "handleLinksButtonPress"} style={styles.PayButton}>
-                        <Image source={require("../assets/Component1581.png")} style={{flex: 1, aspectRatio: 1}} />
+                    <TouchableOpacity onPress={() => navigation.navigate("AppTab", { screen: 'MyLinks' })} style={styles.PayButton}>
+                        <Image source={require("../assets/Component1581.png")} style={{ flex: 1, aspectRatio: 1 }} />
                     </TouchableOpacity>
                 </View>
 
@@ -42,7 +43,7 @@ const HomePage = ({navigation}) => {
                         color=""
                         disabled={undefined}
                         image={require("../assets/pocket.png")}
-                        onPress={()=> navigation.jumpTo('PocketManager')}
+                        onPress={() => navigation.navigate('PocketManager')}
                     />
                 </View>
 
@@ -53,7 +54,7 @@ const HomePage = ({navigation}) => {
                         color=""
                         disabled={undefined}
                         image={require("../assets/Group2214.png")}
-                        onPress={()=>{}}
+                        onPress={() => { }}
                     />
 
                     {/* Scan QR Code */}
@@ -62,7 +63,7 @@ const HomePage = ({navigation}) => {
                         color=""
                         disabled={undefined}
                         image={require("../assets/QRPageicon.png")}
-                        onPress={()=>{}}
+                        onPress={() => { }}
                     />
                 </View>
             </View>
@@ -94,7 +95,6 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         marginTop: "-38%",
     },
-
     Wallet_GetPaid_Container: {
         display: "flex",
         flexDirection: "row",
@@ -107,16 +107,6 @@ const styles = StyleSheet.create({
         marginTop: "-22%",
         paddingHorizontal: 30,
     },
-    History: {},
-    MyLinks: {},
-    BottomButtons: {},
-    PocketManager: {
-        // display: "flex",
-        // flexDirection: "row",
-        marginTop: 15,
-        paddingHorizontal: 30,
-    },
-
     PocketManager_container: {
         alignItems: "center",
     },
@@ -130,5 +120,5 @@ const styles = StyleSheet.create({
         flex: 1,
         resizeMode: "cover",
         justifyContent: "center",
-      },
+    },
 });
