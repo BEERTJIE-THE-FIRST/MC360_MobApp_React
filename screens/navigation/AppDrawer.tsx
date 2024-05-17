@@ -6,7 +6,7 @@ import PocketManagerScreen from "../pocketManagement/PocketManagerScreen";
 
 const Drawer = createDrawerNavigator();
 
-export const CustomDrawerContent = (props) => {
+export const CustomDrawerContent = (props:any) => {
     return (
         <DrawerContentScrollView {...props}>
             <ImageBackground
