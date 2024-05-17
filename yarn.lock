@@ -1513,6 +1513,11 @@
   resolved "https://registry.npmjs.org/@react-native-community/netinfo/-/netinfo-11.3.1.tgz"
   integrity sha512-UBnJxyV0b7i9Moa97Av+HKho1ByzX0DtbJXzUQS5E3xhQs6P2D/Os0iw3ouy7joY1TVd6uIhplPbr7l1SJNaNQ==
 
+"@react-native-picker/picker@^2.7.5":
+  version "2.7.5"
+  resolved "https://registry.npmjs.org/@react-native-picker/picker/-/picker-2.7.5.tgz#e43fcd65f260fa4f23e974ccb9fb7c1f7a9ff94a"
+  integrity sha512-vhMaOLkXSUb+YKVbukMJToU4g+89VMhBG2U9+cLYF8X8HtFRidrHjohGqT8/OyesDuKIXeLIP+UFYI9Q9CRA9Q==
+
 "@react-native/assets-registry@0.74.83", "@react-native/assets-registry@~0.74.83":
   version "0.74.83"
   resolved "https://registry.npmjs.org/@react-native/assets-registry/-/assets-registry-0.74.83.tgz"
@@ -3190,6 +3195,13 @@ expo-constants@~16.0.0:
   dependencies:
     "@expo/config" "~9.0.0-beta.0"
 
+expo-device@~6.0.2:
+  version "6.0.2"
+  resolved "https://registry.npmjs.org/expo-device/-/expo-device-6.0.2.tgz#9bc3eccd16509c2819c225cc2ca8f7c3e3bdd11e"
+  integrity sha512-sCt91CuTmAuMXX4SlFOn4lIos2UIr8vb0jDstDDZXys6kErcj0uynC7bQAMreU5uRUTKMAl4MAMpKt9ufCXPBw==
+  dependencies:
+    ua-parser-js "^0.7.33"
+
 expo-file-system@~17.0.1:
   version "17.0.1"
   resolved "https://registry.npmjs.org/expo-file-system/-/expo-file-system-17.0.1.tgz"
@@ -3206,6 +3218,13 @@ expo-keep-awake@~13.0.1:
   version "13.0.1"
   resolved "https://registry.npmjs.org/expo-keep-awake/-/expo-keep-awake-13.0.1.tgz"
   integrity sha512-Kqv8Bf1f5Jp7YMUgTTyKR9GatgHJuAcC8vVWDEkgVhB3O7L3pgBy5MMSMUhkTmRRV6L8TZe/rDmjiBoVS/soFA==
+
+expo-local-authentication@~14.0.1:
+  version "14.0.1"
+  resolved "https://registry.npmjs.org/expo-local-authentication/-/expo-local-authentication-14.0.1.tgz#0cad7f419d4694e1c205f589cdf355f2f2b3a2b4"
+  integrity sha512-kAwUD1wEqj1fhwQgIHlP4H/JV9AcX+NO3BJwhPM2HuCFS0kgx2wvcHisnKBSTRyl8u5Jt4odzMyQkDJystwUTg==
+  dependencies:
+    invariant "^2.2.4"
 
 expo-modules-autolinking@1.11.1:
   version "1.11.1"
@@ -3224,6 +3243,11 @@ expo-modules-core@1.12.10:
   integrity sha512-aS4imfr7fuUtcx+j/CHuG6ohNSThyCzGRh1kKjQTDcO0/CqDO2cSFnxf7n2vpiRFgyoMFJvFFtW/zIzVXiC2Tw==
   dependencies:
     invariant "^2.2.4"
+
+expo-secure-store@~13.0.1:
+  version "13.0.1"
+  resolved "https://registry.npmjs.org/expo-secure-store/-/expo-secure-store-13.0.1.tgz#fc886d3e0ed12890c8dd74e7cc44e35b03f2d79b"
+  integrity sha512-5DTKjbv98X7yPbm+1jER/sOEIlt2Ih7qwabTvkWDXry5bPcQGoulxH5zIX9+JvVH7of8GI4t7NSEbpAO3P7FZA==
 
 expo-status-bar@~1.12.1:
   version "1.12.1"
@@ -6665,6 +6689,11 @@ typescript@~5.3.3:
   version "5.3.3"
   resolved "https://registry.npmjs.org/typescript/-/typescript-5.3.3.tgz"
   integrity sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==
+
+ua-parser-js@^0.7.33:
+  version "0.7.37"
+  resolved "https://registry.npmjs.org/ua-parser-js/-/ua-parser-js-0.7.37.tgz#e464e66dac2d33a7a1251d7d7a99d6157ec27832"
+  integrity sha512-xV8kqRKM+jhMvcHWUKthV9fNebIzrNy//2O9ZwWcfiBFR5f25XVZPLlEajk/sf3Ra15V92isyQqnIEXRDaZWEA==
 
 ua-parser-js@^1.0.35:
   version "1.0.37"

@@ -14,14 +14,46 @@ import {
     Pressable,
 } from "react-native";
 import LoginPopup from "./popups/login_Popup";
-// import LoginPopup from "./popups/login_Popup";
+import * as LocalAuthentication from 'expo-local-authentication';
+import * as SecureStore from 'expo-secure-store';
+import axios from 'axios';
+import { AuthLogin } from "../../../environments";
 
 export default function AuthenticationScreen({navigation}:any) {
     const [modalVisible, setModalVisible] = useState(false);
+    const [isAuthenticating, setIsAuthenticating] = useState(false);
     
-    function AuthBtn_Clicked(): void {
-        navigation.navigate('AppDrawer', { screen: 'Home' })
-    }
+    const AuthBtn_Clicked = async () => {
+        try {
+            const availability = await LocalAuthentication.hasHardwareAsync();
+            const authKey = SecureStore.getItem('micashSecriteKey');
+
+            if (authKey !== null || availability) {
+                const authResult = await LocalAuthentication.authenticateAsync({
+                    promptMessage: 'Fingerprint Required!',
+                });
+
+                if (authResult.success) {
+                    setIsAuthenticating(true);
+
+                    const loginResponse = await AuthLogin(); // Await the authLogin call
+
+                    setIsAuthenticating(false);
+
+                    if (loginResponse.success) {
+                        navigation.navigate('AppDrawer', { screen: 'Home' });
+                    } else {
+                        Alert.alert('Error', loginResponse.reason, [{ text: 'Ok' }]);
+                    }
+                }
+            }
+        } catch (error) {
+            console.error('Authentication error:', error);
+            Alert.alert('Error', 'An error occurred during authentication.', [{ text: 'Ok' }]);
+        } finally {
+            setIsAuthenticating(false);
+        }
+    };
 
     function Login_Clicked(): void {
         setModalVisible(true);
