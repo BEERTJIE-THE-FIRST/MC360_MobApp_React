@@ -1,18 +1,12 @@
 import React, {useState, useEffect} from "react";
 import {Text, View, TextInput, TouchableOpacity, Alert, ActivityIndicator} from "react-native";
-import * as SecureStore from "expo-secure-store";
+import NetInfo from "@react-native-community/netinfo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {AuthLogin, environments} from "../../../../environments";
+import {environments} from "../../../../environments";
 import DeviceInfoUtil from "../../../../essentials";
 import axios from "axios";
-import ApiResponce from "../../../models/ApiResponce";
 
-export const loginClicked = async (
-    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-    loginAttempts: any,
-    phoneAndEmail: string,
-    codeInputs: string[]
-):Promise<ApiResponce> => {
+export const loginClicked = async (setIsLoading: React.Dispatch<React.SetStateAction<boolean>>, loginAttempts: any, phoneAndEmail: string, codeInputs: string[]) => {
     let pin = "";
 
     async function HashString(concatenatedInputs: any, micashSecriteKey: string) {
@@ -90,7 +84,7 @@ export const loginClicked = async (
 
         let authkey = null;
         try {
-            authkey = AsyncStorage.getItem(environments.micashSecriteKey); // Get authkey from AsyncStorage
+            authkey = await AsyncStorage.getItem(environments.micashSecriteKey); // Get authkey from AsyncStorage
         } catch (error) {
             console.error("Error getting authkey from AsyncStorage:", error);
         }
@@ -113,25 +107,27 @@ export const loginClicked = async (
             if (response.headers["Set-Cookie"]) {
                 const sessionCookie = response.headers["Set-Cookie"].split(";")[0].split("=")[1];
                 try {
-                    SecureStore.setItem("CookeyKey", `ASP.NET_SessionId=${sessionCookie}`); // Store sessionCookie in AsyncStorage
-                    SecureStore.setItem("pin", pin); // Store pin in AsyncStorage
+                    await AsyncStorage.setItem("CookeyKey", `ASP.NET_SessionId=${sessionCookie}`); // Store sessionCookie in AsyncStorage
+                    await AsyncStorage.setItem("pin", pin); // Store pin in AsyncStorage
                 } catch (error) {
                     console.error("Error storing data in AsyncStorage:", error);
                 }
             }
 
             if (!responseData.new_device) {
-                let savedPin = SecureStore.getItem("pin");
-                let savedAuthKey = SecureStore.getItem(environments.micashSecriteKey);
-                if (savedPin != null && savedAuthKey != null) {
-                    SecureStore.setItem(responseData.AuthKey, environments.micashSecriteKey);
-                    let authLogin = await AuthLogin();
-                    return authLogin;
-                }
-                responseData.new_device = true;
-                return responseData;
+                // Handle non-new device scenario
+                // Implement your dismissal logic here (e.g., close modal, navigate back, etc.)
+                Alert.alert("Success", "Login successful");
+                setIsLoading(false);
+                return "Success"
+                // navigation.navigate("HomePage")
             } else {
-                return responseData;
+                // Handle new device scenario
+                // Implement your dismissal logic here (e.g., close modal, navigate back, etc.)
+                Alert.alert("Success", "Login successful on a new device");
+                setIsLoading(false);
+                return "Success";
+                // navigation.navigate("HomePage")
             }
         } else {
             if (responseData.code !== "Access_Denied") {
@@ -172,6 +168,6 @@ export const loginClicked = async (
         //#endregion login logic
     } catch (error) {
         setIsLoading(false);
-        return error;
+        return `Error during login:", ${error}`;
     }
 };

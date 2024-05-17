@@ -3,7 +3,7 @@ import {View, Text, TextInput, ActivityIndicator, StyleSheet, TouchableOpacity} 
 
 export default function Button({onPress, name, color, disabled}) {
     return (
-        <TouchableOpacity onPress={onPress} style={[styles.button, color && {backgroundColor: color, borderRadius:5}]} disabled = {disabled}>
+        <TouchableOpacity onPress={onPress} style={[styles.button, color && {backgroundColor: color}]} disabled = {disabled}>
             <Text style={styles.button_text}>{name}</Text>
         </TouchableOpacity>
     );
