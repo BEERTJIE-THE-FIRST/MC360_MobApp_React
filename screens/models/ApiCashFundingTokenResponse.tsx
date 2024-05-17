@@ -1,8 +1,7 @@
 interface ApiCashFundingTokenResponse {
-    documentUrl: string;
-    expiryTime: string;
-    status: string;
-  }
-  
-  export default ApiCashFundingTokenResponse;
-  
+  DocumentUrl: string;
+  ExpiryTime: string;
+  Status: string;
+}
+
+export default ApiCashFundingTokenResponse;

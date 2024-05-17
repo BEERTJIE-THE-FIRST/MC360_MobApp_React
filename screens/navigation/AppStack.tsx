@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "../HomeScreen";
 import AuthenticationScreen from "../usermanagement/auth/authenticationScreen";
 import AppDrawer from "./AppDrawer";
+import AppTab from "./AppTab";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,14 +18,6 @@ export const AppStack = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen name="AppDrawer" component={AppDrawer} options={{ headerShown: false }} />
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            title: "Welcome Home",
-            headerStyle: { backgroundColor: '#2F3E6B' }
-          }}
-        />
       </Stack.Navigator>
     </ImageBackground>
   );

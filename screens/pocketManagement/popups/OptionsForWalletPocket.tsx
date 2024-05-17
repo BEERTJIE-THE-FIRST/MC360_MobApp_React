@@ -1,9 +1,36 @@
 import React, {useState, useRef, useEffect} from "react";
-import {View, Text, ActivityIndicator, StyleSheet, Alert, TextInput, Pressable, TouchableOpacity, Modal} from "react-native";
+import {
+    View,
+    Text,
+    ActivityIndicator,
+    StyleSheet,
+    Alert,
+    TextInput,
+    Pressable,
+    TouchableOpacity,
+    Modal,
+} from "react-native";
 import NetInfo from "@react-native-community/netinfo";
-import AddNewPocketPopup from "./AddNewPocketPopup";
+import {ApiPocket} from "../../models/ApiPocket";
 
-export default function OptionsForWalletPocket({onClose, setModalVisible, navigation, setTitle, openModal, setOpenModal}: any) {
+type Props = {
+    setTitle: React.Dispatch<React.SetStateAction<string>>;
+    onClose: boolean;
+    setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    data?: ApiPocket;
+    pockets?: ApiPocket[];
+    openModal: boolean;
+    setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export default function OptionsForWalletPocket({
+    setModalVisible,
+    openModal,
+    setOpenModal,
+    setTitle,
+    data,
+    pockets,
+}: Props) {
     const [focused, setFocused] = useState(false);
 
     // const navigation = useNavigation();
@@ -43,7 +70,11 @@ export default function OptionsForWalletPocket({onClose, setModalVisible, naviga
                 setModalVisible(false);
                 break;
             case "Delete Pocket":
-                Alert.alert("Delete Pocket!", `You are about to delete {'Wallet'} pocket. Are you sure you want to delete this pocket`, [{ text: "NO" }, { text: "YES" }]);
+                Alert.alert(
+                    "Delete Pocket!",
+                    `You are about to delete ${data.Name} pocket. Are you sure you want to delete this pocket`,
+                    [{text: "NO"}, {text: "YES"}]
+                );
                 break;
             default:
                 setModalVisible(false);
@@ -61,14 +92,15 @@ export default function OptionsForWalletPocket({onClose, setModalVisible, naviga
             <TouchableOpacity onPress={() => handleTouchableEvent("Transfer Funds")} style={styles.touchableTexts}>
                 <Text>Transfer Funds</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleTouchableEvent("Delete Pocket")} style={styles.touchableTexts}>
-                <Text>Delete Pocket</Text>
-            </TouchableOpacity>
+            {!data.isMain && (
+                <TouchableOpacity onPress={() => handleTouchableEvent("Delete Pocket")} style={styles.touchableTexts}>
+                    <Text>Delete Pocket</Text>
+                </TouchableOpacity>
+            )}
 
             <TouchableOpacity onPress={() => handleTouchableEvent("CANCEL")} style={{alignSelf: "flex-end"}}>
                 <Text style={{color: "red"}}>CANCEL</Text>
             </TouchableOpacity>
-            
         </View>
     );
 }
@@ -93,8 +125,8 @@ const styles = StyleSheet.create({
     },
     centeredView: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: "center",
         // alignItems: 'center',
         marginTop: 22,
-      },
+    },
 });

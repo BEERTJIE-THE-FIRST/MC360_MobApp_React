@@ -3,7 +3,7 @@ import {View, ScrollView, Image, TouchableOpacity, StyleSheet, Text} from "react
 import IconButton from "./components/icon_button";
 //import CustomNavBar from './components/customNavBar';
 
-const HomePage = ({navigation}:any) => {
+const HomePage = ({ navigation }:any) => {
     const handlePayButtonPress = () => {
         navigation.navigate('GetPaid'); // Navigate to GetPaidPage1
       };
@@ -14,7 +14,7 @@ const HomePage = ({navigation}:any) => {
     return (
         <View style={styles.container}>
             {/* Pay Button */}
-            <TouchableOpacity onPress={() => "handlePayButtonPress"} style={styles.PayButton}>
+            <TouchableOpacity onPress={() => navigation.navigate("AppTab", { screen: 'Pay' })} style={styles.PayButton}>
                 <Image source={require("../assets/Component1541.png")} style={styles.PayButton_image} />
             </TouchableOpacity>
 
@@ -44,22 +44,36 @@ const HomePage = ({navigation}:any) => {
                 </TouchableOpacity>
             </View>
 
-            {/* Bottom Buttons */}
-            <View style={styles.PocketManager_container}>
-                {/* <IconButton onPress={()=>""} name={"Pocket Manager"} color={""} disabled={undefined} image={""}/> */}
-            </View>
+                {/* Bottom Buttons */}
+                <View style={styles.PocketManager_container}>
+                    <IconButton
+                        name="Pocket Manager"
+                        color=""
+                        disabled={undefined}
+                        image={require("../assets/pocket.png")}
+                        onPress={() => navigation.navigate('PocketManager')}
+                    />
+                </View>
 
-            <View style={styles.ShowCode_ScanCode}>
-                {/* Show Code Action */}
-                    <TouchableOpacity onPress={() => "handleShowCodeActionPress"} style={{}}>
-                        <Image source={require("../assets/Group2214.png")} style={{flex: 1, aspectRatio: 2}} />
-                    </TouchableOpacity>
+                <View style={styles.ShowCode_ScanCode}>
+                    {/* Show Code Action */}
+                    <IconButton
+                        name="Show code"
+                        color=""
+                        disabled={undefined}
+                        image={require("../assets/Group2214.png")}
+                        onPress={() => { }}
+                    />
 
                     {/* Scan QR Code */}
-                    <TouchableOpacity onPress={() => "handleScanQRCodePress"} style={{}}>
-                        <Image source={require("../assets/Group2213.png")} style={{flex: 1, aspectRatio: 2}} />
-                    </TouchableOpacity>
-
+                    <IconButton
+                        name="Scan code"
+                        color=""
+                        disabled={undefined}
+                        image={require("../assets/QRPageicon.png")}
+                        onPress={() => { }}
+                    />
+                </View>
             </View>
         </View>
     );
@@ -89,7 +103,6 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         marginTop: "-38%",
     },
-
     Wallet_GetPaid_Container: {
         display: "flex",
         flexDirection: "row",
@@ -102,16 +115,6 @@ const styles = StyleSheet.create({
         marginTop: "-22%",
         paddingHorizontal: 30,
     },
-    History: {},
-    MyLinks: {},
-    BottomButtons: {},
-    PocketManager: {
-        // display: "flex",
-        // flexDirection: "row",
-        marginTop: 15,
-        paddingHorizontal: 30,
-    },
-
     PocketManager_container:{
         alignItems: "center",
     },
@@ -121,5 +124,5 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         marginTop: "-22%",
     }
-    
+  
 });

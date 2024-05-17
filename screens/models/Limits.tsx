@@ -1,7 +1,6 @@
 interface Limits {
-    approveLimitAmount: number;
-    autoLimitAmount: number;
-  }
-  
-  export default Limits;
-  
+  ApproveLimitAmount: number;
+  AutoLimitAmount: number;
+}
+
+export default Limits;

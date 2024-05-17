@@ -2,8 +2,8 @@ import ApiUserResponse from './ApiUserResponse';
 import ApiTransaction from './ApiTransaction';
 
 interface ApiLinkResponse {
-  user: ApiUserResponse;
-  transactions: ApiTransaction[];
+  User: ApiUserResponse;
+  Transactions: ApiTransaction[];
 }
 
 export default ApiLinkResponse;
