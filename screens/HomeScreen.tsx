@@ -1,8 +1,16 @@
 import React from "react";
 import {View, ScrollView, Image, TouchableOpacity, StyleSheet, Text} from "react-native";
 import IconButton from "./components/icon_button";
+//import CustomNavBar from './components/customNavBar';
 
-const HomePage = () => {
+const HomePage = ({navigation}:any) => {
+    const handlePayButtonPress = () => {
+        navigation.navigate('GetPaid'); // Navigate to GetPaidPage1
+      };
+    
+      const handleHistoryButtonPress = () => {
+        navigation.navigate('History')
+      };
     return (
         <View style={styles.container}>
             {/* Pay Button */}
@@ -11,21 +19,23 @@ const HomePage = () => {
             </TouchableOpacity>
 
             <View style={styles.Wallet_GetPaid_Container}>
-                <TouchableOpacity onPress={() => "handlePayButtonPress"} style={styles.PayButton}>
-                    <Image source={require("../assets/WalletButton.png")} style={{flex: 1, aspectRatio: 1}} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => "handlePayButtonPress"} style={styles.PayButton}>
-                    <Image source={require("../assets/Component1551.png")} style={{flex: 1, aspectRatio: 1}} />
-                </TouchableOpacity>
-            </View>
+        {/* Wallet Button */}
+        <TouchableOpacity onPress={handlePayButtonPress} style={styles.PayButton}>
+          <Image source={require("../assets/WalletButton.png")} style={{ flex: 1, aspectRatio: 1 }} />
+        </TouchableOpacity>
+        {/* Get Paid Button */}
+        <TouchableOpacity onPress={handlePayButtonPress} style={styles.PayButton}>
+          <Image source={require("../assets/Component1551.png")} style={{ flex: 1, aspectRatio: 1 }} />
+        </TouchableOpacity>
+      </View>
             {/* Middle Logo */}
-            <View onPress={() => "handlePayButtonPress"} style={styles.MiddleLogo}>
+            <View style={styles.MiddleLogo}>
                 <Image source={require("../assets/Component1511.png")} style={{flex: 1, aspectRatio: 1}} />
             </View>
 
             <View style={styles.History_MyLinks_Container}>
                 {/* History Button */}
-                <TouchableOpacity onPress={() => "handleHistoryButtonPress"} style={styles.PayButton}>
+                <TouchableOpacity onPress={handleHistoryButtonPress} style={styles.PayButton}>
                     <Image source={require("../assets/Component1571.png")} style={{flex: 1, aspectRatio: 1}} />
                 </TouchableOpacity>
                 {/* My Links Button */}
@@ -36,7 +46,7 @@ const HomePage = () => {
 
             {/* Bottom Buttons */}
             <View style={styles.PocketManager_container}>
-                <IconButton onPress={()=>""} name={"Pocket Manager"} color={""} disabled={undefined} image={""}/>
+                {/* <IconButton onPress={()=>""} name={"Pocket Manager"} color={""} disabled={undefined} image={""}/> */}
             </View>
 
             <View style={styles.ShowCode_ScanCode}>
