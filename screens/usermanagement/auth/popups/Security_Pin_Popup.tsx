@@ -1,12 +1,18 @@
 import React, {useState, useEffect} from "react";
 import {Text, View, TextInput, TouchableOpacity, Alert, ActivityIndicator} from "react-native";
-import NetInfo from "@react-native-community/netinfo";
+import * as SecureStore from "expo-secure-store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {environments} from "../../../../environments";
+import {AuthLogin, environments} from "../../../../environments";
 import DeviceInfoUtil from "../../../../essentials";
 import axios from "axios";
+import ApiResponce from "../../../models/ApiResponce";
 
-export const loginClicked = async (setIsLoading: React.Dispatch<React.SetStateAction<boolean>>, loginAttempts: any, phoneAndEmail: string, codeInputs: string[]) => {
+export const loginClicked = async (
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
+    loginAttempts: any,
+    phoneAndEmail: string,
+    codeInputs: string[]
+):Promise<ApiResponce> => {
     let pin = "";
 
     async function HashString(concatenatedInputs: any, micashSecriteKey: string) {
@@ -84,7 +90,7 @@ export const loginClicked = async (setIsLoading: React.Dispatch<React.SetStateAc
 
         let authkey = null;
         try {
-            authkey = await AsyncStorage.getItem(environments.micashSecriteKey); // Get authkey from AsyncStorage
+            authkey = AsyncStorage.getItem(environments.micashSecriteKey); // Get authkey from AsyncStorage
         } catch (error) {
             console.error("Error getting authkey from AsyncStorage:", error);
         }
@@ -107,27 +113,25 @@ export const loginClicked = async (setIsLoading: React.Dispatch<React.SetStateAc
             if (response.headers["Set-Cookie"]) {
                 const sessionCookie = response.headers["Set-Cookie"].split(";")[0].split("=")[1];
                 try {
-                    await AsyncStorage.setItem("CookeyKey", `ASP.NET_SessionId=${sessionCookie}`); // Store sessionCookie in AsyncStorage
-                    await AsyncStorage.setItem("pin", pin); // Store pin in AsyncStorage
+                    SecureStore.setItem("CookeyKey", `ASP.NET_SessionId=${sessionCookie}`); // Store sessionCookie in AsyncStorage
+                    SecureStore.setItem("pin", pin); // Store pin in AsyncStorage
                 } catch (error) {
                     console.error("Error storing data in AsyncStorage:", error);
                 }
             }
 
             if (!responseData.new_device) {
-                // Handle non-new device scenario
-                // Implement your dismissal logic here (e.g., close modal, navigate back, etc.)
-                Alert.alert("Success", "Login successful");
-                setIsLoading(false);
-                return "Success"
-                // navigation.navigate("HomePage")
+                let savedPin = SecureStore.getItem("pin");
+                let savedAuthKey = SecureStore.getItem(environments.micashSecriteKey);
+                if (savedPin != null && savedAuthKey != null) {
+                    SecureStore.setItem(responseData.AuthKey, environments.micashSecriteKey);
+                    let authLogin = await AuthLogin();
+                    return authLogin;
+                }
+                responseData.new_device = true;
+                return responseData;
             } else {
-                // Handle new device scenario
-                // Implement your dismissal logic here (e.g., close modal, navigate back, etc.)
-                Alert.alert("Success", "Login successful on a new device");
-                setIsLoading(false);
-                return "Success";
-                // navigation.navigate("HomePage")
+                return responseData;
             }
         } else {
             if (responseData.code !== "Access_Denied") {
@@ -168,6 +172,6 @@ export const loginClicked = async (setIsLoading: React.Dispatch<React.SetStateAc
         //#endregion login logic
     } catch (error) {
         setIsLoading(false);
-        return `Error during login:", ${error}`;
+        return error;
     }
 };

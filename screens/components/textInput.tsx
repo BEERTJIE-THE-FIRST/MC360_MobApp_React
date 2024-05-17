@@ -8,8 +8,8 @@ type TextIputAttributes = {
     placeholder: string;
     keyboardType?: KeyboardTypeOptions;
     maxLength?: number;
-    value: string;
-    onChangeText: (text: string) => void
+    value: any;
+    onChangeText: (text: any) => void
 }
 
 const AuthenticationTextInput = ({onFocus, onBlur, focused, placeholder, keyboardType, maxLength, value, onChangeText}:TextIputAttributes) => {

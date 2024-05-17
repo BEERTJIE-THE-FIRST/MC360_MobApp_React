@@ -14,14 +14,51 @@ import {
     Pressable,
 } from "react-native";
 import LoginPopup from "./popups/login_Popup";
-// import LoginPopup from "./popups/login_Popup";
+import * as LocalAuthentication from 'expo-local-authentication';
+import * as SecureStore from 'expo-secure-store';
+import axios from 'axios';
+import { AuthLogin } from "../../../environments";
+import OtpVerificationPopup from "./popups/OtpVerificationPopup";
 
 export default function AuthenticationScreen({navigation}:any) {
     const [modalVisible, setModalVisible] = useState(false);
+    const [isAuthenticating, setIsAuthenticating] = useState(false);
+    const [otpModalVisible, setOtpModalVisible] = useState(false);
     
-    function AuthBtn_Clicked(): void {
-        navigation.navigate('AppDrawer', { screen: 'Home' })
-    }
+    const AuthBtn_Clicked = async () => {
+        
+        navigation.navigate('AppDrawer', { screen: 'Home' });
+        return;
+        try {
+            const availability = await LocalAuthentication.hasHardwareAsync();
+            const authKey = SecureStore.getItem('micashSecriteKey');
+
+            if (authKey !== null || availability) {
+                const authResult = await LocalAuthentication.authenticateAsync({
+                    promptMessage: 'Fingerprint Required!',
+                });
+
+                if (authResult.success) {
+                    setIsAuthenticating(true);
+
+                    const loginResponse = await AuthLogin(); // Await the authLogin call
+
+                    setIsAuthenticating(false);
+
+                    if (loginResponse.success) {
+                        navigation.navigate('AppDrawer', { screen: 'Home' });
+                    } else {
+                        Alert.alert('Error', loginResponse.reason, [{ text: 'Ok' }]);
+                    }
+                }
+            }
+        } catch (error) {
+            console.error('Authentication error:', error);
+            Alert.alert('Error', 'An error occurred during authentication.', [{ text: 'Ok' }]);
+        } finally {
+            setIsAuthenticating(false);
+        }
+    };
 
     function Login_Clicked(): void {
         setModalVisible(true);
@@ -91,7 +128,19 @@ export default function AuthenticationScreen({navigation}:any) {
                 }}
             >
                 <View style={styles.centeredView}>
-                    <LoginPopup onClose={!modalVisible} setModalVisible={setModalVisible} navigation={navigation}/>
+                    <LoginPopup onClose={!modalVisible} setModalVisible={setModalVisible} setOtpModalVisible={setOtpModalVisible} navigation={navigation}/>
+                </View>
+            </Modal>
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={otpModalVisible}
+                onRequestClose={() => {
+                    setModalVisible(!otpModalVisible);
+                }}
+            >
+                <View style={styles.centeredView}>
+                    <OtpVerificationPopup onClose={!otpModalVisible} setModalVisible={setOtpModalVisible} navigation={navigation}/>
                 </View>
             </Modal>
         </ImageBackground>
